@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SO·CO Beauty Super App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff69b4, #ff1493, #ffc0cb);
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .logo-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .logo-wrapper {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo {
+            max-width: 280px;
+            width: 80%;
+            height: auto;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.3));
+            animation: squishy 2s ease-out forwards;
+            transform-origin: center;
+        }
+        
+        .logo-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: 1;
+            animation: glow 2s ease-out forwards;
+        }
+        
+        .logo-frame {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            z-index: 0;
+            animation: frame 2s ease-out forwards;
+        }
+        
+        .logo-frame::before {
+            content: '';
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            top: -10px;
+            left: -10px;
+        }
+        
+        .logo-frame::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            top: 10px;
+            left: 10px;
+        }
+        
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: sparkle 1.5s linear infinite;
+        }
+        
+        @keyframes squishy {
+            0% {
+                transform: scale(0.1);
+                opacity: 0;
+            }
+            30% {
+                transform: scale(1.3);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(0.9);
+            }
+            70% {
+                transform: scale(1.05);
+            }
+            85% {
+                transform: scale(0.98);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes glow {
+            0% {
+                opacity: 0;
+                transform: scale(0.1);
+            }
+            30% {
+                opacity: 0.4;
+                transform: scale(1.3);
+            }
+            50% {
+                opacity: 0.35;
+                transform: scale(0.9);
+            }
+            70% {
+                opacity: 0.4;
+                transform: scale(1.05);
+            }
+            85% {
+                opacity: 0.39;
+                transform: scale(0.98);
+            }
+            100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes frame {
+            0% {
+                opacity: 0;
+                transform: scale(0.1);
+            }
+            30% {
+                opacity: 0.7;
+                transform: scale(1.3);
+            }
+            50% {
+                opacity: 0.65;
+                transform: scale(0.9);
+            }
+            70% {
+                opacity: 0.7;
+                transform: scale(1.05);
+            }
+            85% {
+                opacity: 0.69;
+                transform: scale(0.98);
+            }
+            100% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.2; }
+        }
+        
+        @keyframes sparkle {
+            0% { opacity: 0; transform: scale(0); }
+            25% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0; transform: scale(0); }
+            75% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+        
+        @keyframes redirect {
+            0% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .redirect-animation {
+            animation: redirect 2.2s forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="logo-container redirect-animation">
+        <div class="logo-wrapper">
+            <div class="logo-frame"></div>
+            <div class="logo-glow"></div>
+            <img src="logo soco.png" alt="SO·CO Beauty Super App" class="logo">
+            <div id="sparkles"></div>
+        </div>
+    </div>
+
+    <script>
+        // Membuat bintang-bintang dekoratif
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 50;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Ukuran acak untuk bintang
+                const size = Math.random() * 3 + 1; // Ukuran bingtang antara 1px - 4px
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Posisi acak
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Delay animasi acak
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Membuat efek kilauan (sparkles) di sekitar logo
+        
+        
+        // Redirect ke frameset stlh 2 detik
+        function redirectToFrameset() {
+            setTimeout(() => {
+                // Ganti URL ini dengan URL frameset Anda
+                window.location.href = "sociolla-frame.html";
+            }, 2000);
+        }
+        
+        // Inisialisasi
+        window.onload = function() {
+            createStars();
+            redirectToFrameset();
+        };
+    </script>
+</body>
+</html>

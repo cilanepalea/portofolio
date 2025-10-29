@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beauty Store - Produk Kecantikan Terbaik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            line-height: 1.6;n
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            color: #e91e63;
+            border-bottom-color: #e91e63;
+        }
+
+        .nav-tab:hover {
+            color: #e91e63;
+        }
+
+        /* Promotional Banner */
+        .promo-banner {
+            background: linear-gradient(135deg, #ff6b9d, #e91e63);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .promo-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .promo-subtitle {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .shop-btn {
+            background: #333;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .shop-btn:hover {
+            background: #555;
+            transform: translateY(-2px);
+        }
+
+        /* Products Section */
+        .products-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 150px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+            color: #666;
+            position: relative;
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #e91e63;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .wishlist-icon {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(255,255,255,0.8);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .wishlist-icon:hover {
+            background: #e91e63;
+            color: white;
+        }
+
+        .product-label {
+            background: #ff6b9d;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 0.7em;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .product-brand {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .product-name {
+            font-size: 1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+            line-height: 1.2;
+        }
+
+        .product-price {
+            margin-bottom: 8px;
+        }
+
+        .current-price {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #e91e63;
+        }
+
+        .original-price {
+            font-size: 0.9em;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stars {
+            color: #ffc107;
+            font-size: 1.1em;
+        }
+
+        .rating-text {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* Bundle Section */
+        .bundle-section {
+            background: linear-gradient(135deg, #ff6b9d, #e91e63);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .bundle-title {
+            color: white;
+            font-size: 2em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .bundle-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .bundle-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Chat Button */
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .chat-button:hover {
+            background: #c2185b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .promo-title {
+                font-size: 2em;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .bundle-products {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .container {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+
+            .bundle-products {
+                grid-template-columns: 1fr;
+            }
+
+            .promo-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav-tabs">
+                <a href="#" class="nav-tab active">Bestie Deals For You</a>
+                <a href="#" class="nav-tab">New Beauty Besties</a>
+                <a href="#" class="nav-tab">Must-have Beauties</a>
+            </nav>
+        </header>
+
+        <!-- Promotional Banner -->
+        <section class="promo-banner">
+            <h1 class="promo-title">Value Pack</h1>
+            <p class="promo-subtitle">BUY MORE SPEND LESS</p>
+            <button class="shop-btn">SHOP ALL</button>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <h2 class="section-title">Produk Terpopuler</h2>
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span>DERMA ANGEL<br>Acne Beauty Patch</span>
+                        <div class="discount-badge">60%</div>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-label">ONLINE DEALS</div>
+                    <div class="product-brand">DERMA ANGEL</div>
+                    <div class="product-name">Acne Beauty Patch Hologram - Heart & Flower</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp17.200</span>
+                        <span class="original-price">Rp43.000</span>
+                    </div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">4.8 (269)</span>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span>SKIN1004<br>Centella Cleansing Oil</span>
+                        <div class="discount-badge">10%</div>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-label">100 HOTLIST</div>
+                    <div class="product-brand">SKIN1004</div>
+                    <div class="product-name">Madagascar Centella Light Cleansing Oil</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp56.000 - Rp152.000</span>
+                    </div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">4.7 (2,3k)</span>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span>COSRX<br>6 Peptide Serum</span>
+                        <div class="discount-badge">5%</div>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-label">New 150ml</div>
+                    <div class="product-brand">COSRX</div>
+                    <div class="product-name">The 6 Peptide Skin Booster Serum</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp288.000</span>
+                        <span class="original-price">Rp320.000</span>
+                    </div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">4.8 (575)</span>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span>ROUND LAB<br>Sunscreen</span>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-label">50ml</div>
+                    <div class="product-brand">ROUND LAB</div>
+                    <div class="product-name">Birch Juice Moisturizing Tone-Up Sunscreen</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp284.050</span>
+                        <span class="original-price">Rp299.000</span>
+                    </div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">4.8 (17)</span>
+                    </div>
+                </div>
+
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span>SAFF & CO<br>KIRITHRA Perfume</span>
+                        <div class="discount-badge">33%</div>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-label">35ml</div>
+                    <div class="product-brand">SAFF & CO</div>
+                    <div class="product-name">Extrait de Parfum - KIRITHRA</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp233.830</span>
+                        <span class="original-price">Rp349.000</span>
+                    </div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">4.8 (40)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bundle Section -->
+        <section class="bundle-section">
+            <h2 class="bundle-title">Paket Hemat</h2>
+            <div class="bundle-products">
+                <!-- Bundle 1 -->
+                <div class="bundle-card">
+                    <div class="product-image">
+                        <span>DERMA ANGEL<br>Acne-Free Play Pack</span>
+                        <div class="discount-badge">SALE</div>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-label">BUNDLE</div>
+                    <div class="product-brand">DERMA ANGEL</div>
+                    <div class="product-name">Acne-Free Play Pack - Yellow</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp149.000</span>
+                        <span class="original-price">Rp210.000</span>
+                    </div>
+                </div>
+
+                <!-- Bundle 2 -->
+                <div class="bundle-card">
+                    <div class="product-image">
+                        <span>SKIN1004<br>Centella Ampoule 1+1</span>
+                        <div class="discount-badge">SALE</div>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-label">BUNDLE</div>
+                    <div class="product-brand">SKIN1004</div>
+                    <div class="product-name">Madagascar Centella Ampoule 55ml 1+1</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp150.000</span>
+                        <span class="original-price">Rp816.000</span>
+                    </div>
+                </div>
+
+                <!-- Bundle 3 -->
+                <div class="bundle-card">
+                    <div class="product-image">
+                        <span>I'M FROM<br>Mugwort Duo</span>
+                        <div class="discount-badge">15%</div>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-label">EXCLUSIVE</div>
+                    <div class="product-brand">I'M FROM</div>
+                    <div class="product-name">Mugwort Best Selling Duo</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp508.300</span>
+                        <span class="original-price">Rp598.000</span>
+                    </div>
+                </div>
+
+                <!-- Bundle 4 -->
+                <div class="bundle-card">
+                    <div class="product-image">
+                        <span>ESPOIR<br>Be Glow Set</span>
+                        <div class="discount-badge">SALE</div>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-label">BUNDLE</div>
+                    <div class="product-brand">ESPOIR</div>
+                    <div class="product-name">Be Glow Volume Hyper Glow Refill Set</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp499.000</span>
+                        <span class="original-price">Rp768.000</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- More Products -->
+        <section class="products-section">
+            <h2 class="section-title">More to explore for you, Bestie!</h2>
+            <div class="products-grid">
+                <!-- Additional products can be added here -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <span>Produk Lainnya</span>
+                        <div class="discount-badge">20%</div>
+                        <button class="wishlist-icon">♡</button>
+                    </div>
+                    <div class="product-brand">BRAND</div>
+                    <div class="product-name">Nama Produk</div>
+                    <div class="product-price">
+                        <span class="current-price">Rp100.000</span>
+                        <span class="original-price">Rp125.000</span>
+                    </div>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-text">4.5 (100)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Chat Button -->
+    <button class="chat-button">💬</button>
+
+    <script>
+        // Simple JavaScript untuk interaksi
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wishlist functionality
+            const wishlistButtons = document.querySelectorAll('.wishlist-icon');
+            wishlistButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (this.textContent === '♡') {
+                        this.textContent = '♥';
+                        this.style.color = '#e91e63';
+                    } else {
+                        this.textContent = '♡';
+                        this.style.color = '#333';
+                    }
+                });
+            });
+
+            // Navigation tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Smooth scroll untuk chat button
+            const chatButton = document.querySelector('.chat-button');
+            chatButton.addEventListener('click', function() {
+                alert('Chat dengan customer service akan segera tersedia!');
+            });
+        });
+    </script>
+</body>
+</html>

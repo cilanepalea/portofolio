@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>guest book</title>
+    <style>
+        body {
+            text-align: left;
+        }
+
+        th.komentar {
+            padding-left: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guest Book</h1>
+    <hr>
+<table>
+    <tr>
+    <th>
+        <form>
+            Email<br>
+            <input type="text" size="30" /><br><br>
+            Nama<br>
+            <input type="text" size="30" /><br><br>
+            Status<br>
+            <input type="radio" name="status" value="Mahasiswa" checked/>Mahasiswa
+            <input type="radio" name="status" value="Dosen" checked/>Dosen
+    </th>
+    <th class="komentar">
+            Komentar: <br>
+            <textarea rows="6" cols="40">
+            </textarea>
+        </form>
+    </th>
+    </tr>
+</table>    
+</body>
+</html>

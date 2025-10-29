@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grisly Elegant Login</title>
+    <style>
+        @import url('https://fonts.google.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap');
+
+        /* CSS Reset and Basic Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Latar belakang gradasi pink yang gelap dan suram untuk efek 'grisly' */
+            background: linear-gradient(135deg, #ff69b4, #ff1493, #ffc0cb);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Animasi untuk latar belakang */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Kontainer utama untuk form login */
+        .login-container {
+            background: rgba(255, 255, 255, 0.95); /* Putih semi-transparan yang elegan */
+            padding: 40px;
+            border-radius: 15px;
+            /* Bayangan */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            /* Efek border retak yang menambah kesan 'grisly' */
+            border: 3px solid #fff;
+            border-right-color: #c74b86;
+            border-bottom-color: #c74b86;
+            transition: all 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Judul Form */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #4d0d29;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Input Fields */
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            background: transparent;
+            font-size: 1rem;
+            color: #333;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-bottom-color: #c74b86;
+        }
+        
+        /* Tombol Submit */
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #ff69b4, #ff1493, #ffc0cb);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 5px 15px rgba(210, 77, 137, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        /* Pesan "Berhasil Login" */
+        #message {
+            font-size: 1.2rem;
+            color: #4d0d29;
+            font-weight: bold;
+            animation: fadeIn 1s;
+        }
+
+        .hidden {
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-container" id="loginBox">
+        <h1>Login To Sociolla</h1>
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="input-group">
+                <input type="text" class="input-field" id="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" class="input-field" id="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="submit-btn">Enter</button>
+        </form>
+        <div id="message" class="hidden">
+            Berhasil Login...
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            // Mencegah form dari refresh halaman
+            event.preventDefault();
+
+            // Ambil elemen yang dibutuhkan
+            const loginForm = document.getElementById('loginForm');
+            const message = document.getElementById('message');
+            
+            // Sembunyikan form login
+            loginForm.style.display = 'none';
+            
+            // Tampilkan pesan berhasil
+            message.classList.remove('hidden');
+
+            // Tunggu 1.5 detik lalu redirect ke halaman sociolla-frame.html
+            setTimeout(() => {
+                window.location.href = 'sociolla-frame.html';
+            }, 1500); // 1500 milidetik = 15 detik
+
+            // Mengembalikan false untuk memastikan form tidak disubmit secara tradisional
+            return false;
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Produk - Barenbliss</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* CSS Reset & Basic Styling */
+        :root {
+            --primary-color: #FD5D9E; /* Pink khas Sociolla */
+            --secondary-color: #212121; /* Teks utama */
+            --border-color: #E0E0E0;
+            --background-color: #F5F5F5;
+            --discount-bg: #FFEBEF;
+            --star-color: #FFC107;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            color: var(--secondary-color);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        /* Breadcrumbs */
+        .breadcrumbs {
+            font-size: 14px;
+            color: #757575;
+            margin-bottom: 20px;
+        }
+        .breadcrumbs a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        /* Product View Layout */
+        .product-view {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+        }
+        /* Product Gallery (Sisi Kiri) */
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .main-image img {
+            width: 90%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .main-image img:hover {
+            transform: scale(1.02);
+        }
+        .thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 10px;
+        }
+        .thumbnail-img {
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+        .thumbnail-img:hover, .thumbnail-img.active {
+            opacity: 1;
+            border-color: var(--primary-color);
+        }
+        /* Product Details (Sisi Kanan) */
+        .product-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .brand {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+        .product-title {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+        .reviews {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .stars {
+            color: var(--star-color);
+        }
+        .review-count {
+            color: #757575;
+        }
+        .price-section {
+            background-color: var(--background-color);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .price {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 5px;
+        }
+        .current-price {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .original-price {
+            font-size: 16px;
+            color: #9E9E9E;
+            text-decoration: line-through;
+        }
+        .discount-badge {
+            background-color: var(--discount-bg);
+            color: var(--primary-color);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .availability {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4CAF50;
+        }
+        
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-add-to-cart {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-add-to-cart:hover {
+            background-color: #E64A8A;
+        }
+        .btn-buy-now {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+         .btn-buy-now:hover {
+            background-color: #FFF5F9;
+        }
+        /* Accordion for Product Info */
+        .product-info-accordion {
+            border-top: 1px solid var(--border-color);
+        }
+        .accordion-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+        .accordion-header {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 18px 0;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+        .accordion-header:hover {
+            color: var(--primary-color);
+        }
+        .accordion-header i {
+            transition: transform 0.4s ease;
+        }
+        .accordion-header.active i {
+            transform: rotate(180deg);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            font-size: 15px;
+            color: #616161;
+        }
+        .accordion-content p {
+            padding-bottom: 20px;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .product-view {
+                grid-template-columns: 1fr;
+            }
+            .product-title {
+                font-size: 24px;
+            }
+            .actions {
+                 grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumbs">
+            <a href="sociolla-content.html">Home</a> / <a href="#">Skincare</a> / <a href="">Cleanser</a> / <a href="">Cleansing Oil</a> / <a href="">Madagascar Centella Light Cleansing Oil</a>
+        </div>
+        <section class="product-view">
+            <div class="product-gallery">
+                <div class="main-image">
+                    <img id="main-image" src="G2G.png" alt="Produk Utama">
+                </div>
+                <div class="thumbnails">
+                    <img class="thumbnail-img active" src="G2G.png" alt="Thumbnail 1">
+                    <img class="thumbnail-img active" src="G2G-2.png" alt="Thumbnail 2">
+                    <img class="thumbnail-img active" src="G2G-3.png" alt="Thumbnail 3">
+                    <img class="thumbnail-img active" src="G2G-4.png" alt="Thumbnail 4">
+                </div>
+            </div>
+            <div class="product-details">
+                <h2 class="brand"> GLAD2GLOW</h2>
+                <h1 class="product-title">Madagascar Centella Light Cleansing Oil</h1>
+                
+                <div class="reviews">
+                    <span class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </span>
+                    <span class="rating-score">4.7/5</span>
+                    <span class="review-count">(342 Reviews)</span>
+                </div>
+                <div class="price-section">
+                    <div class="price">
+                        <span class="current-price">Rp 56.000</span>
+                        <span class="original-price">Rp 99.000</span>
+                        <span class="discount-badge">10% OFF</span>
+                    </div>
+                    <div class="availability">Stok tersedia</div>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                    <button class="btn btn-buy-now">Buy Now</button>
+                </div>
+                
+                <div class="product-info-accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header active">
+                            <span>Deskripsi</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content" style="max-height: 500px;">
+                            <p>
+                                <i>
+                                Cleansing oil dengan tekstur ringan, mampu mengangkat makeup waterproof maupun non-waterproof dalam 10 detik. Diperkaya dengan 3x Oil Blend, membantu mengurangi
+                                blackhead dan whitehead, menjadikan kulit lebih halus dan bersih. Membersihkan wajah sampai ke pori tanpa merusak skin barrier, menjaga wajah tetap lembab dan lembut.
+                                Dilengkapi dengan Centella Asiatica untuk meredakan kemerahan dan menenangkan kulit sensitif - cocok untuk semua jenis kulit.
+                                </i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>Cara Penggunaan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>
+                                <i>
+                                Ambil produk secukupnya. Pijat lembut ke seluruh wajah. Tambahkan beberapa tetes air ke wajah untuk mengemulsi. Bilas wajah dengan air sampai bersih.
+                                </i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>Kandungan</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <p>
+                                ETHYLHEXYL PALMITATE, CETYL ETHYLHEXANOATE, ETHYLHEXYL STEARATE, PEG-20 GLYCERYL TRIISOSTEARATE, BUTYLENE GLYCOL, PEG-12 LAURATE, AQUA, CENTELLA ASIATICA EXTRACT,
+                                CAMELLIA JAPONICA SEED OIL, SIMMONDSIA CHINENSIS SEED OIL, GLYCOSPHINGOLIPIDS, HELICHRYSUM ITALICUM FLOWER OIL, PROPANEDIOL, AROMA, PHENOXYETHANOL.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Logika Galeri Gambar Interaktif ---
+            const mainImage = document.getElementById('main-image');
+            const thumbnails = document.querySelectorAll('.thumbnail-img');
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    // Hapus kelas 'active' dari semua thumbnail
+                    thumbnails.forEach(t => t.classList.remove('active'));
+                    
+                    // Tambahkan kelas 'active' ke thumbnail yang diklik
+                    this.classList.add('active');
+                    
+                    // Ubah gambar utama sesuai dengan thumbnail yang diklik
+                    mainImage.src = this.src;
+                });
+            });
+            // --- Logika Accordion Interaktif ---
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    
+                    // Toggle kelas 'active' pada header
+                    this.classList.toggle('active');
+                    // Cek apakah accordion sedang terbuka atau tertutup
+                    if (content.style.maxHeight) {
+                        // Jika terbuka, tutup
+                        content.style.maxHeight = null;
+                    } else {
+                        // Jika tertutup, buka dengan mengatur max-height
+                        // scrollHeight akan menghitung tinggi konten sebenarnya
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
